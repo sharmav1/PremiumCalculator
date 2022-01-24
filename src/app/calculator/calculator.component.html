@@ -1,0 +1,70 @@
+<form [formGroup]="premiumCalculatorForm" id="premiumCalculatorForm" (ngSubmit)="onSubmit()">
+        <div class='row'>
+      <div class="col-6">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" formControlName="name" id="name" placeholder="Enter your name">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger">
+              <div *ngIf="f['name'].errors && f['name'].errors['required']">Name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" class="form-control"  formControlName="dateOfBirth" id="dob" #dob
+            placeholder="Enter your date of birth" (blur)="onDobChange($any($event.target).value)">
+            <div *ngIf="f['dateOfBirth'].touched && f['dateOfBirth'].invalid" class="text-danger">
+                <div *ngIf="f['dateOfBirth'].errors && f['dateOfBirth'].errors['required']">Date of birth is required</div>
+                <div *ngIf="f['dateOfBirth'].errors && f['dateOfBirth'].errors['dob_error_invalid']">Date of birth cannot be future date</div>
+                <div *ngIf="f['dateOfBirth'].errors && f['dateOfBirth'].errors['dob_error_invalid_range']">Date of birth must be between 0 to 100 years</div>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" formControlName="age"  id="age" 
+            placeholder="Enter date of birth to get your age" [value]="customerAge"
+            readonly>
+            <!-- <div *ngIf="f['age'].touched && f['age'].invalid" class="text-danger">
+              <div *ngIf="f['age'].errors && f['age'].errors['required']">Age is required</div>
+            </div> -->
+          </div>
+      
+            <div class="form-group">
+              <label for="sumInsured">Sum Insured</label>
+              <input type="number" class="form-control"  formControlName="sumInsured" id="sumInsured" placeholder="Enter sum insured">
+              <div *ngIf="f['sumInsured'].touched && f['sumInsured'].invalid" class="text-danger">
+                  <div *ngIf="f['sumInsured'].errors && f['sumInsured'].errors['required']">Sum Insured is required</div>
+              </div>
+            </div>
+      
+            <div class="form-group">
+              <label for="occupation">Occupation</label>
+              <select class="form-control" formControlName="occupation" id="occupation"
+               placeholder="Select your occupation" (change)="onOccupationChange($any($event.target).value)">
+                  <option *ngFor="let item of occupations" 
+                      [value]="item.id">
+                      {{item.description}}
+                  </option>
+              </select>
+              <!-- <input type="text" class="form-control"  formControlName="occupation" id="occupation" placeholder="Enter occupation"> -->
+              <div *ngIf="f['occupation'].touched && f['occupation'].invalid" class="text-danger">
+                  <div *ngIf="f['occupation'].errors && f['occupation'].errors['required']">Occupation is required</div>
+              </div>
+            </div>
+            
+          <button type="submit" [disabled]="!premiumCalculatorForm.valid"  class="btn btn-success"
+          (click)="onFormSubmit()">Submit</button>
+      </div>
+      <div class="col-6">
+        <div>
+            <h4>Your Monthly Premium:</h4>
+            <p></p>
+            <h4>{{monthlyPremium}}</h4>
+            
+          </div>
+    </div>
+    
+      </div>
+  </form>
+  
