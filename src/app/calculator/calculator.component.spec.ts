@@ -3,23 +3,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CalculatorComponent } from './calculator.component';
 
 describe('CalculatorComponent', () => {
-  let component: CalculatorComponent;
-  let fixture: ComponentFixture<CalculatorComponent>;
+  let calculatorComponent: CalculatorComponent;
+  let mockFormBuilder;
+  let mockOccupationService;
+  let mockMonthlyPremiumService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CalculatorComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CalculatorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
+  mockFormBuilder = jasmine.createSpyObj(['group']);
+  mockOccupationService = jasmine.createSpyObj(['getOccupations']);
+  mockMonthlyPremiumService = jasmine.createSpyObj(['getMonthlyPremium']);
+  calculatorComponent = new CalculatorComponent(mockFormBuilder, mockOccupationService, mockMonthlyPremiumService);
+ 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(calculatorComponent).toBeTruthy();
   });
 });

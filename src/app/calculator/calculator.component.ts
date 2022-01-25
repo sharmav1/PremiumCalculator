@@ -36,10 +36,6 @@ export class CalculatorComponent implements OnInit {
 
   dateValidator(c: AbstractControl)
   {
-    var currYear = new Date().getFullYear();
-    var currMonth = new Date().getMonth();
-    var currDay = new Date().getDay();
-    var bdate = new Date(c.value);
     if(new Date(c.value).getTime() > Date.now()){
       return {'dob_error_invalid': 'Date of birth cannot be future date'}
     }
